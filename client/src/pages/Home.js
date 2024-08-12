@@ -8,7 +8,8 @@ function Home() {
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/api/testimonials');
+        const response = await axios.get(`${process.env.REACT_APP_API_BASE_URL}/api/testimonials`);
+        console.log('Fetched Testimonials:', response.data); // Log the fetched data
         setTestimonials(response.data);
       } catch (error) {
         console.error('Error fetching testimonials:', error);

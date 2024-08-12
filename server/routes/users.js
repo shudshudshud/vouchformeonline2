@@ -2,19 +2,20 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 
-// @route   POST /api/users
-// @desc    Create a new user
-router.post('/', async (req, res) => {
+// @route   POST /api/users/update
+// @desc    Update user's name and relationship
+router.post('/update', async (req, res) => {
   try {
-    const { email, name, relationship } = req.body;
+    const { name, relationship } = req.body;
+    const userId = req.user._id;
 
-    const newUser = new User({ email, name, relationship });
-    const user = await newUser.save();
-    res.json(user);
+    const updatedUser = await User.findByIdAndUpdate(userId, { name, relationship }, { new: true });
+
+    res.json(updatedUser);
   } catch (err) {
-    console.error(err.message);
+    console.error('Error updating user information:', err);
     res.status(500).send('Server error');
   }
 });
 
-module.exports = router;
+module.exports = router;  // Ensure that you are exporting the router

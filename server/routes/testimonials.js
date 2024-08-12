@@ -10,8 +10,10 @@ router.get('/', async (req, res) => {
     const testimonials = await Testimonial.find()
       .populate('userId', 'name relationship')
       .sort({ date: -1 });
+    console.log('Fetched Testimonials:', testimonials); // Log the fetched testimonials
     res.json(testimonials);
   } catch (err) {
+    console.error('Error fetching testimonials:', err);
     res.status(500).json({ message: 'Server error' });
   }
 });
@@ -38,6 +40,7 @@ router.post('/', async (req, res) => {
     const testimonial = await newTestimonial.save();
     res.json(testimonial);
   } catch (err) {
+    console.error('Error creating testimonial:', err);
     res.status(500).json({ message: 'Server error' });
   }
 });

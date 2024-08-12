@@ -6,13 +6,13 @@ function NewTestimonial() {
   const [category, setCategory] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [userId] = useState('your_user_id_here'); // Replace with actual user ID
+  const [userId, setUserId] = useState(''); // Replace with actual user ID fetching logic
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const newTestimonial = { category, title, content, userId };
-      await axios.post('http://localhost:5000/api/testimonials', newTestimonial);
+      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/testimonials`, newTestimonial);
       alert('Testimonial submitted successfully');
     } catch (error) {
       console.error('Error submitting testimonial:', error);
