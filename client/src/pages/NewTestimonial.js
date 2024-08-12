@@ -6,7 +6,7 @@ function NewTestimonial() {
   const [category, setCategory] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [userId] = useState('your-user-id'); // Replace with actual logged-in user ID
+  const [userId] = useState('your_user_id_here'); // Replace with actual user ID
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,7 +14,6 @@ function NewTestimonial() {
       const newTestimonial = { category, title, content, userId };
       await axios.post('http://localhost:5000/api/testimonials', newTestimonial);
       alert('Testimonial submitted successfully');
-      // Redirect or clear form after submission
     } catch (error) {
       console.error('Error submitting testimonial:', error);
     }
@@ -26,9 +25,7 @@ function NewTestimonial() {
         Submit a New Testimonial
       </Typography>
       <form onSubmit={handleSubmit}>
-        <Typography variant="h6" component="h2">
-          Category
-        </Typography>
+        <Typography variant="h6">Category</Typography>
         <TextField
           select
           value={category}
@@ -40,9 +37,7 @@ function NewTestimonial() {
           <MenuItem value="work">Work</MenuItem>
         </TextField>
 
-        <Typography variant="h6" component="h2">
-          Title
-        </Typography>
+        <Typography variant="h6">Title</Typography>
         <TextField
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -50,9 +45,7 @@ function NewTestimonial() {
           margin="normal"
         />
 
-        <Typography variant="h6" component="h2">
-          Testimonial
-        </Typography>
+        <Typography variant="h6">Testimonial</Typography>
         <TextField
           value={content}
           onChange={(e) => setContent(e.target.value)}
