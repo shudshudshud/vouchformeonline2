@@ -6,7 +6,7 @@ function NewTestimonial() {
   const [category, setCategory] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [userId, setUserId] = useState(''); // Replace with actual user ID fetching logic
+  const [userId] = useState(''); // Replace with actual user ID fetching logic
 
   const handleSubmit = async (e) => {
     e.preventDefault();
