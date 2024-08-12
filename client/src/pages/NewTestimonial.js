@@ -1,15 +1,23 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Button, TextField, MenuItem, Typography } from '@mui/material';
 
 function NewTestimonial() {
   const [category, setCategory] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const [userId] = useState('your-user-id'); // Replace with actual logged-in user ID
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Logic to handle form submission
-    console.log({ category, title, content });
+    try {
+      const newTestimonial = { category, title, content, userId };
+      await axios.post('http://localhost:5000/api/testimonials', newTestimonial);
+      alert('Testimonial submitted successfully');
+      // Redirect or clear form after submission
+    } catch (error) {
+      console.error('Error submitting testimonial:', error);
+    }
   };
 
   return (
