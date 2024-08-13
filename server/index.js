@@ -7,12 +7,12 @@ const session = require('express-session');
 const path = require('path');
 
 const app = express();
+app.use(cors());
 
 // Connect to MongoDB
 connectDB();
 
 // Middleware
-app.use(cors());
 app.use(bodyParser.json());
 
 // Session middleware
