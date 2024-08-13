@@ -11,7 +11,9 @@ const app = express();
 // Define the CORS options
 const corsOptions = {
   credentials: true,
-  origin: ['https://app.vouchforme.online/', 'http://localhost:3000'] // Whitelist the domains you want to allow
+  origin: ['https://app.vouchforme.online/', 'http://localhost:3000'], // Whitelist the domains you want to allow
+  methods: ['GET', 'PUT', 'POST'],
+  allowedHeaders: ['Authorization', 'Content-Type']
 };
 
 
