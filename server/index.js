@@ -7,7 +7,15 @@ const session = require('express-session');
 const path = require('path');
 
 const app = express();
-app.use(cors());
+
+// Define the CORS options
+const corsOptions = {
+  credentials: true,
+  origin: ['https://app.vouchforme.online/', 'http://localhost:3000'] // Whitelist the domains you want to allow
+};
+
+
+app.use(cors(corsOptions));
 
 // Connect to MongoDB
 connectDB();
@@ -41,12 +49,6 @@ console.log("Testimonial Routes:", typeof testimonialRoutes);  // Should log 'fu
 
 const userRoutes = require('./routes/users');
 console.log("User Routes:", typeof userRoutes);  // Should log 'function' or 'object')
-
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
 
 // Routes
 app.use('/auth', authRoutes); 
