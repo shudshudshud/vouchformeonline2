@@ -12,7 +12,10 @@ function NewTestimonial() {
     e.preventDefault();
     try {
       const newTestimonial = { category, title, content, userId };
-      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/testimonials`, newTestimonial);
+      await axios.post({
+        baseURL: process.env.REACT_APP_API_BASE_URL,
+        url: '/api/testimonials'
+      }, newTestimonial);
       alert('Testimonial submitted successfully');
     } catch (error) {
       console.error('Error submitting testimonial:', error);

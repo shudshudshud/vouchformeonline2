@@ -8,7 +8,10 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post(`${process.env.REACT_APP_API_BASE_URL}/api/users/update`, { name, relationship });
+      await axios.post({
+        baseURL: process.env.REACT_APP_API_BASE_URL,
+        url: '/api/users/update'
+      }, { name, relationship });
       // After updating, redirect to the home page
       window.location.href = '/';
     } catch (error) {
