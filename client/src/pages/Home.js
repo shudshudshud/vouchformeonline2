@@ -8,7 +8,7 @@ function Home() {
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const response = await axios.get({
+        const response = await axios({
           baseURL: process.env.REACT_APP_API_BASE_URL,
           url: '/api/testimonials'
         });
