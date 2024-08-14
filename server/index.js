@@ -8,7 +8,7 @@ const app = express();
 
 // Define the CORS options
 const corsOptions = {
-  origin: true,
+  origin: ["https://app.vouchforme.online/","localhost:3000"],
   methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
   allowedHeaders: ['Authorization', 'Content-Type']
 };
