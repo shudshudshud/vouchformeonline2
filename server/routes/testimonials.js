@@ -21,12 +21,16 @@ router.get('/', async (req, res) => {
 // @route   POST /api/testimonials
 // @desc    Create a new testimonial
 router.post('/', async (req, res) => {
-  try {
-    const { category, title, content, userId } = req.body;
+  const { category, title, content, userId } = req.body;
+  
+  console.log('Received testimonial data:', req.body); // Log the received data
 
+  try {
     // Validate userId
+    console.log(userId)
     const user = await User.findById(userId);
     if (!user) {
+      console.error('User not found:', userId); // Log if the user is not found
       return res.status(404).json({ message: 'User not found' });
     }
 
@@ -38,9 +42,10 @@ router.post('/', async (req, res) => {
     });
 
     const testimonial = await newTestimonial.save();
+    console.log('Testimonial created successfully:', testimonial); // Log successful creation
     res.json(testimonial);
   } catch (err) {
-    console.error('Error creating testimonial:', err);
+    console.error('Error creating testimonial:', err.message); // Log the error message
     res.status(500).json({ message: 'Server error' });
   }
 });

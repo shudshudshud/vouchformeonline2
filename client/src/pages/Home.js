@@ -4,6 +4,8 @@ import { Card, CardContent, Typography } from '@mui/material';
 
 function Home() {
   const [testimonials, setTestimonials] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchTestimonials = async () => {
@@ -16,29 +18,46 @@ function Home() {
         setTestimonials(response.data);
       } catch (error) {
         console.error('Error fetching testimonials:', error);
+        setError('Failed to load testimonials');
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchTestimonials();
   }, []);
 
+  if (loading) {
+    return <p>Loading testimonials...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
   return (
     <div style={{ padding: '20px' }}>
       <h1>Vouch For Me Online</h1>
-      {testimonials.map((testimonial, index) => (
-        <Card key={index} style={{ marginBottom: '20px' }}>
-          <CardContent>
-            <Typography variant="h5">{testimonial.userId.name}</Typography>
-            <Typography variant="subtitle1" color="textSecondary">
-              Relationship: {testimonial.userId.relationship}
-            </Typography>
-            <Typography variant="subtitle2" color="textSecondary">
-              Category: {testimonial.category}
-            </Typography>
-            <Typography variant="body1">{testimonial.content}</Typography>
-          </CardContent>
-        </Card>
-      ))}
+      {testimonials.length > 0 ? (
+        testimonials.map((testimonial, index) => (
+          <Card key={index} style={{ marginBottom: '20px' }}>
+            <CardContent>
+              <Typography variant="h5">
+                {testimonial.userId?.name || 'Anonymous'}
+              </Typography>
+              <Typography variant="subtitle1" color="textSecondary">
+                Relationship: {testimonial.userId?.relationship || 'Unknown'}
+              </Typography>
+              <Typography variant="subtitle2" color="textSecondary">
+                Category: {testimonial.category}
+              </Typography>
+              <Typography variant="body1">{testimonial.content}</Typography>
+            </CardContent>
+          </Card>
+        ))
+      ) : (
+        <p>No testimonials found.</p>
+      )}
     </div>
   );
 }

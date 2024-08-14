@@ -2,20 +2,16 @@ const express = require('express');
 const connectDB = require('./config/db');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const passport = require('passport');
-const session = require('express-session');
 const path = require('path');
 
 const app = express();
 
 // Define the CORS options
 const corsOptions = {
-  credentials: true,
-  origin: ['https://app.vouchforme.online/', 'http://localhost:3000'], // Whitelist the domains you want to allow
-  methods: ['GET', 'PUT', 'POST'],
+  origin: true,
+  methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
   allowedHeaders: ['Authorization', 'Content-Type']
 };
-
 
 app.use(cors(corsOptions));
 
@@ -25,35 +21,19 @@ connectDB();
 // Middleware
 app.use(bodyParser.json());
 
-// Session middleware
-app.use(session({
-  secret: 'your_secret_key',
-  resave: false,
-  saveUninitialized: true
-}));
-
-// Passport middleware
-app.use(passport.initialize());
-app.use(passport.session());
-
 // Request logging middleware
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
   next();
 });
 
-// Import Routes and Log Their Types
+// Import Routes
 const authRoutes = require('./routes/auth');
-console.log("Auth Routes:", typeof authRoutes);  // Should log 'function' or 'object'
-
 const testimonialRoutes = require('./routes/testimonials');
-console.log("Testimonial Routes:", typeof testimonialRoutes);  // Should log 'function' or 'object'
-
 const userRoutes = require('./routes/users');
-console.log("User Routes:", typeof userRoutes);  // Should log 'function' or 'object')
 
-// Routes
-app.use('/auth', authRoutes); 
+// Corrected Routes
+app.use('/api/auth', authRoutes);  // Changed to include '/api'
 app.use('/api/testimonials', testimonialRoutes); 
 app.use('/api/users', userRoutes); 
 
