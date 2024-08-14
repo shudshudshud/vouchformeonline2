@@ -8,12 +8,13 @@ const app = express();
 
 // Define the CORS options
 const corsOptions = {
-  origin: ["https://app.vouchforme.online/","localhost:3000"],
+  origin: ["http://app.vouchforme.online","https://app.vouchforme.online", "http://localhost:3000"],
   methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
   allowedHeaders: ['Authorization', 'Content-Type']
 };
 
-app.use(cors(corsOptions));
+// Use CORS middleware with the defined options
+app.use(cors());
 
 // Connect to MongoDB
 connectDB();
@@ -27,15 +28,22 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*'); // Allow all domains or specify specific domain
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+  next();
+});
+
+
 // Import Routes
 const authRoutes = require('./routes/auth');
 const testimonialRoutes = require('./routes/testimonials');
 const userRoutes = require('./routes/users');
 
-// Corrected Routes
-app.use('/api/auth', authRoutes);  // Changed to include '/api'
-app.use('/api/testimonials', testimonialRoutes); 
-app.use('/api/users', userRoutes); 
+// Use Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/testimonials', testimonialRoutes);
+app.use('/api/users', userRoutes);
 
 // Serve static files from the React app
 app.use(express.static(path.join(__dirname, '../client/build')));
