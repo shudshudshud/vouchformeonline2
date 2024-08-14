@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import axios from 'axios';
+// import axios from 'axios';
 
 // Optionally remove if not using cookies for authentication
 // axios.defaults.withCredentials = true;
