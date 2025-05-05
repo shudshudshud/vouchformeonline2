@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Card, CardContent, Typography, Box, Link, Button, Divider, Paper } from '@mui/material';
+import { Card, CardContent, Typography, Button, Divider, Paper } from '@mui/material';
 
 function Home() {
   const [testimonials, setTestimonials] = useState([]);
